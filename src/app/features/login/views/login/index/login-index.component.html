@@ -1,0 +1,54 @@
+<div class="bg-primary w-full h-full flex items-center justify-center">
+  <div class="w-1/2 h-full flex items-center justify-center">
+    <form [formGroup]="formGroup">
+      <div class="bg-white h-96 w-[500px] rounded-lg p-8 flex flex-col gap-4">
+        <h2 class="text-3xl font-bold ">Sedes Cochabamba</h2>
+        <div>
+          <label for="userName">Usuario</label>
+          <div class="relative w-full ">
+            <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z" clip-rule="evenodd" />
+              </svg>
+            </span>
+            <input app-input type="text" placeholder="Ingrese su usuario"
+              formControlName="username"
+              [ngClass]="{'border-red-500': formGroup.controls['username'].invalid && formGroup.controls['username'].touched}"
+            />
+          </div>
+        </div>
+  
+        <div>
+          <label for="password">Contraseña</label>
+          <div class="relative w-full">
+            <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                <path fill-rule="evenodd" d="M12 1.5a5.25 5.25 0 0 0-5.25 5.25v3a3 3 0 0 0-3 3v6.75a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3v-6.75a3 3 0 0 0-3-3v-3c0-2.9-2.35-5.25-5.25-5.25Zm3.75 8.25v-3a3.75 3.75 0 1 0-7.5 0v3h7.5Z" clip-rule="evenodd" />
+              </svg>            
+            </span>
+            <input app-input type="password" placeholder="Ingrese su contraseña" 
+              formControlName="password"
+              [ngClass]="{'border-red-500': formGroup.controls['password'].invalid && formGroup.controls['password'].touched}"
+            />
+          </div>
+        </div>
+        <div class="flex items-center justify-between gap-2">
+          <div class="flex items-center gap-2">
+            <input type="checkbox" id="remember" name="remember"              />
+            <label for="remember">Recordar</label>
+          </div>
+          <a href="#" class="text-cyan-500">Olvidaste tu contraseña?</a>
+        </div>
+        
+        <button class="bg-sky-700 text-white rounded-md p-2 hover:bg-sky-500 disabled:bg-gray-300"
+        [disabled]="formGroup.invalid"
+        (click)="login()">
+          {{message}}
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="w-1/2 h-full flex items-center justify-center">
+    <img src="https://img.freepik.com/vector-gratis/vector-degradado-logotipo-colorido-pajaro_343694-1365.jpg?ga=GA1.1.1721763275.1741617143&semt=ais_hybrid" alt="logo">
+  </div>
+</div>
