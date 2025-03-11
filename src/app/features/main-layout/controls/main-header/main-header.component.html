@@ -12,7 +12,7 @@
     <button type="button" (click)="logout()" class="text-nowrap p-2 rounded-lg font-semibold bg-[#F49720] shadow-md">cerrar session</button>
     <div class="flex items-center gap-3">
       <div class="flex flex-col">
-        <h2 class="text-nowrap text-lg font-semibold text-primary-dark">{{userName}}</h2>
+        <h2 class="text-nowrap font-semibold text-primary-dark">{{userName | uppercase}}</h2>
         <span class="text-sm text-teal-900 text-nowrap">{{role}}</span>
       </div>
       

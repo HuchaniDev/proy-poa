@@ -21,7 +21,7 @@ export class  StrategicAxisService{
   }
 
   getById$(strategicAxisId:number){
-    return this.#httpClient.get(`${this.#endpoint}/${strategicAxisId}`)
+    return this.#httpClient.get<ApiResponseInterface<StrategicAxisInterface>>(`${this.#endpoint}/${strategicAxisId}`)
     .pipe(
       catchError((error) => {
         return this.#handleError(error);

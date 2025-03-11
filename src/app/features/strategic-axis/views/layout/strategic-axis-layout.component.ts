@@ -91,7 +91,7 @@ export default class StrategicAxisLayoutComponent {
   }
 
   edit(axisId:number){
-    console.log('edit',axisId);
+    this.openForm(axisId);
   }
 
   #loadData$(){

@@ -28,6 +28,7 @@ export default class StrategicAxisFormComponent {
 
   constructor() {
     this.#initializeComponent();    
+    this.#loadData();
   }
 
   close(value:boolean){
@@ -60,8 +61,33 @@ export default class StrategicAxisFormComponent {
   #initializeComponent(){
     this.formGroup = new FormGroup({
       id: new FormControl<number|null>(this.strategicAxisId),
-      code: new FormControl<string>('',[Validators.required]),
+      code: new FormControl<string>('',[Validators.required,Validators.pattern("^[0-9]*$") ]),
       description: new FormControl<string>('',[Validators.required]),
     });
+  }
+
+  #loadData(){
+    if(this.strategicAxisId&& this.strategicAxisId>0){
+      this.isProcessing = true;
+
+      this.#strategyAxisService.getById$(this.strategicAxisId)
+      .pipe(finalize(()=>this.isProcessing=false))
+      .subscribe({
+        next: (response) => {
+          this.formGroup.setValue(
+            {
+              id: response.data.id,
+              code: response.data.code,
+              description: response.data.description
+            }
+          );
+        },
+        error: (error) => {
+          this.message = error.error.errors;
+          console.log('error',error);
+          this.close(false);
+        }
+      });
+    }
   }
 }

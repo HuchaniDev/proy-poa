@@ -1,10 +1,15 @@
 import { Component, effect, inject } from "@angular/core";
 import authService from "../../../../core/services/auth.service";
+import { UpperCasePipe } from "@angular/common";
 
 @Component({
   selector: 'app-main-header',
   templateUrl: './main-header.component.html',
-  standalone: true
+  standalone: true,
+  imports: [
+    UpperCasePipe
+  ]
+
 })
 export default class MainHeaderComponent {
   #authService = inject(authService)

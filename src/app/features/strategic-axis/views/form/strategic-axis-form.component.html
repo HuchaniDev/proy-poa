@@ -10,10 +10,13 @@
         <label for="">codigo</label>
         <input
           formControlName="code"
-          type="text" app-input useIcon="false" class="w-full p-2 border border-gray-300 rounded-lg" placeholder=" ej: 3487234">
+          type="number" app-input useIcon="false" class="w-full p-2 border border-gray-300 rounded-lg" placeholder=" ej: 3487234">
           
           @if (formGroup.get('code')?.hasError('required') && formGroup.get('code')?.touched) {
             <div class="text-red-500 text-sm">Este campo es requerido</div>
+          }
+          @if (formGroup.get('code')?.hasError('pattern') && formGroup.get('code')?.touched) {
+            <div class="text-red-500 text-sm">Solo numeros</div>
           }
       </div>
       <div id="description" class="h-56">
