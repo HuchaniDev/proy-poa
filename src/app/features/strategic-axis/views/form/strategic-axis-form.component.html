@@ -1,6 +1,6 @@
 <div class="flex flex-col select-none">
   <dialog-header [titleHeader]="(strategicAxisId? 'Editar': 'Nueva')+': Linea Estrategica'"
-    (onClose)="close()"
+    (onClose)="close(false)"
   ></dialog-header>
 
   <form [formGroup]="formGroup" class="">
@@ -32,7 +32,7 @@
       
       <div class="flex justify-end gap-5" >
           <button class="flex items-center gap-2 border border-gray-300 hover:border-yellow-200 rounded-lg py-2 px-5"
-            (click)="close()"
+            (click)="close(false)"
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />

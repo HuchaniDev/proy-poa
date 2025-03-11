@@ -3,6 +3,8 @@ import { DialogHeaderComponent } from "../../../../shared/controls/dialog-header
 import { InputDirective } from "../../../../shared/directives/input.directive";
 import { DialogService } from "../../../../shared/controls/dialog";
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import { StrategicAxisService } from "../../services/strategic-axis.service";
+import { finalize } from "rxjs";
 
 @Component({
   selector: 'app-strategic-axis-form',
@@ -16,6 +18,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angula
 })
 export default class StrategicAxisFormComponent {
   #dialogService = inject(DialogService);
+  #strategyAxisService = inject(StrategicAxisService);
 
   strategicAxisId: number |null = this.#dialogService.dialogConfig?.data?.strategicAxisId;
   isProcessing = false;
@@ -27,13 +30,31 @@ export default class StrategicAxisFormComponent {
     this.#initializeComponent();    
   }
 
-  close(){
-    this.#dialogService.close();
+  close(value:boolean){
+    this.#dialogService.close(value);
   }
   save(){
     this.isProcessing = true;
     this.message = 'guardando...';
-    
+    if(this.formGroup.valid){
+      this.#strategyAxisService.save$(this.formGroup.value)
+      .pipe(
+        finalize(() => {
+          this.isProcessing = false;
+        })
+      )
+      .subscribe({
+        next: (response) => {
+          if(response.isSuccess){
+            this.message = 'Guardado con exito';
+            this.close(true);
+          }
+        },
+        error: (error) => {
+          this.message = error.error.errors;
+        }
+      })
+    }
   }
 
   #initializeComponent(){

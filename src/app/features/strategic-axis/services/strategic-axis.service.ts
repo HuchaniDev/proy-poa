@@ -1,16 +1,18 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { catchError, throwError } from "rxjs";
+import { ApiResponseInterface } from "../../../core/models/api-response.interface";
+import { StrategicAxisInterface } from "../models/strategic.interface";
 
 @Injectable({
   providedIn: 'root'
 })
 export class  StrategicAxisService{
   #httpClient = inject(HttpClient);
-  #endpoint="";
+  #endpoint="http://localhost:5256/strategic-axis";
 
   getAll$(){
-    return this.#httpClient.get(`${this.#endpoint}/`)
+    return this.#httpClient.get<ApiResponseInterface<StrategicAxisInterface[]>>(`${this.#endpoint}/`)
     .pipe(
       catchError((error) => {
         return this.#handleError(error);
@@ -19,7 +21,7 @@ export class  StrategicAxisService{
   }
 
   getById$(strategicAxisId:number){
-    return this.#httpClient.get(`${this.#endpoint}/by-id/${strategicAxisId}`)
+    return this.#httpClient.get(`${this.#endpoint}/${strategicAxisId}`)
     .pipe(
       catchError((error) => {
         return this.#handleError(error);
@@ -27,8 +29,8 @@ export class  StrategicAxisService{
     ));
   }
 
-  save$(strategicAxis:any){
-    return this.#httpClient.post(`${this.#endpoint}`,strategicAxis)
+  save$(strategicAxis:StrategicAxisInterface){
+    return this.#httpClient.post<ApiResponseInterface<object>>(`${this.#endpoint}/`,strategicAxis)
     .pipe(
       catchError((error) => {
         return this.#handleError(error);
@@ -37,7 +39,7 @@ export class  StrategicAxisService{
   }
 
   delete$(strategicAxisId:number){
-    return this.#httpClient.delete(`/${strategicAxisId}`)
+    return this.#httpClient.delete(`${this.#endpoint}/${strategicAxisId}`)
     .pipe(
       catchError((error) => {
         return this.#handleError(error);
