@@ -1,4 +1,4 @@
-<div class="bg-primary w-full h-full flex items-center justify-center">
+<div class="bg-primary w-full h-full flex items-center justify-center select-none">
   <div class="w-1/2 h-full flex items-center justify-center">
     <form [formGroup]="formGroup">
       <div class="bg-white h-96 w-[500px] rounded-lg p-8 flex flex-col gap-4">
@@ -41,10 +41,13 @@
         </div>
         
         <button class="bg-sky-700 text-white rounded-md p-2 hover:bg-sky-500 disabled:bg-gray-300"
-        [disabled]="formGroup.invalid"
+        [disabled]="formGroup.invalid || isProcessing"
         (click)="login()">
-          {{message}}
+          iniciar sesion
         </button>
+        @if (message) {
+          <span class="text-red-500 text-sm">* {{message}}</span>
+        }
       </div>
     </form>
   </div>

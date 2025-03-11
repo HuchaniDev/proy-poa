@@ -26,7 +26,8 @@ export default class LoginIndexComponent {
   #router = inject(Router);
 
   formGroup!: FormGroup;
-  message = 'Iniciar sesión';
+  message = '';
+
   isProcessing = false;
 
   /**
@@ -37,29 +38,27 @@ export default class LoginIndexComponent {
   }
 
   login(){
-    if(this.isProcessing) return;
-
+    this.message = '';
+    this.isProcessing = true;
     this.#loginService.login$(this.formGroup.value as UserAuthInterface)
     .pipe(finalize(() => 
       {
         this.isProcessing = false;
-        this.message = 'Iniciar sesión';
+        this.formGroup.reset();
       }))
     .subscribe({
       next: (response) => {
         if(response.isSuccess && response.data){
           const token = response.data;
           this.#authService.storeToken(token);
+          this.message = '';
           this.#router.navigate(['/dashboard']);
         }
       },
       error: (error) => {
-        console.log(error);
+        this.message = error.error.errors;
       }
     });
-
-    this.isProcessing = true;
-    this.message = 'Verificando...';
     console.log(this.formGroup.value);
 
   } 

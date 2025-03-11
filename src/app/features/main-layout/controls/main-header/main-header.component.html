@@ -9,11 +9,11 @@
     </h1>
   </div>
   <div class="flex items-center gap-4">
-    <button class="text-nowrap p-2 rounded-lg font-semibold bg-[#F49720] shadow-md">cerrar session</button>
+    <button type="button" (click)="logout()" class="text-nowrap p-2 rounded-lg font-semibold bg-[#F49720] shadow-md">cerrar session</button>
     <div class="flex items-center gap-3">
       <div class="flex flex-col">
-        <h2 class="text-nowrap text-lg font-semibold text-primary-dark">Huchani</h2>
-        <span class="text-sm text-teal-900 text-nowrap">Administrador</span>
+        <h2 class="text-nowrap text-lg font-semibold text-primary-dark">{{userName}}</h2>
+        <span class="text-sm text-teal-900 text-nowrap">{{role}}</span>
       </div>
       
       <div class="w-12 h-12 bg-cover bg-lime-500 shadow-black shadow-md rounded-full p-0.5">

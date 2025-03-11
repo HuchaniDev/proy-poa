@@ -18,27 +18,4 @@ import { Feature } from "../../models/features";
 })
 export default class MainLayoutComponent {
 
-  public features:Feature[] = [
-    {
-      name: 'Dashboard',
-      icon: 'dashboard',
-      route: 'dashboard'
-    },
-    {
-      name: 'Usuarios',
-      icon: 'people',
-      route: 'users'
-    },
-    {
-      name: 'Productos',
-      icon: 'shopping_cart',
-      route: 'products'
-    },
-    {
-      name: 'Categorias',
-      icon: 'category',
-      route: 'categories'
-    }
-  ];
-
 }

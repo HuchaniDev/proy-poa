@@ -1,5 +1,7 @@
 export interface Feature{
   name: string;
-  icon: string;
   route: string;
+  icon: string;
+  color: string;
+  roles: string[];
 }

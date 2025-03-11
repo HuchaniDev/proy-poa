@@ -1,46 +1,55 @@
 import { Injectable, inject } from "@angular/core";
-import AuthService from "./auth.service";
+import {jwtDecode} from "jwt-decode";
 
 @Injectable({
   providedIn: 'root'
 })
-export class PermissionService {
-  #authService = inject(AuthService);
+export default class PermissionService {
 
-  #decodeToken(token:string){
-    try {
-      const payload = token.split('.')[1];
-      const decoded = atob(payload);
-      return JSON.parse(decoded);
-    } catch (error) {
-      console.error('Error decoding token', error);
-      return {};
-    }
 
+  getToken() {
+    return localStorage.getItem('token');
+    
   }
-  
+
+  // Decodificar el token JWT utilizando jwt-decode
+  #decodeToken(token: string): any {
+    try {
+      // Usando jwt-decode para decodificar el token
+      return jwtDecode(token);
+    } catch (error) {
+      console.error('Error al decodificar el token', error);
+      return null;
+    }
+  }
+
   getUserRoles(): string[] {
-    const token = this.#authService.getToken();
+    const token = this.getToken();
     if (token) {
+      
       const decodedToken = this.#decodeToken(token);
-      return decodedToken.roles || [];
+      const roles = decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]|| decodedToken["role"] || "";
+      return roles;
     }
     return [];
   }
 
   getUserPermissions(): string[] {
-    const token = this.#authService.getToken();
+    const token = this.getToken();
     if (token) {
       const decodedToken = this.#decodeToken(token);
-      return decodedToken.permissions || [];
+      const permissions = decodedToken["http://schemas.microsoft.com/ws/2008/06/identity/claims/permission"]|| decodedToken["permission"] || "";;
+      return permissions;
     }
     return [];
   }
 
-   // Verificar si el usuario tiene un rol específico
-   hasRole(role: string): boolean {
+  // Verificar si el usuario tiene un rol específico
+  hasRole(role: string): boolean {
     const roles = this.getUserRoles();
-    return roles.includes(role);
+    console.log("",roles.includes(role.toString()));
+    
+    return roles.includes(role.toString());
   }
 
   // Verificar si el usuario tiene un permiso específico
