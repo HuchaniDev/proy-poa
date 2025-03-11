@@ -7,6 +7,7 @@ import { StrategicAxisService } from "../../services/strategic-axis.service";
 import { finalize, of, switchMap } from "rxjs";
 import { StrategicAxisInterface } from "../../models/strategic.interface";
 import { ApiResponseInterface } from "../../../../core/models/api-response.interface";
+import { FormsModule } from "@angular/forms";
 
 @Component({
   selector: 'app-strategic-axis-layout',
@@ -14,7 +15,9 @@ import { ApiResponseInterface } from "../../../../core/models/api-response.inter
   standalone: true,
   imports: [
     PageHeaderComponent,
-    InputDirective
+    InputDirective,
+    FormsModule,
+
   ]
 })
 export default class StrategicAxisLayoutComponent {
@@ -23,6 +26,8 @@ export default class StrategicAxisLayoutComponent {
   
   isLoaging = false;
   strategicAxisList: StrategicAxisInterface[] = [];
+
+  textSearch = '';
   
   
   /**
@@ -39,6 +44,25 @@ export default class StrategicAxisLayoutComponent {
         console.log('error',error);
       }
     });
+  }
+
+  searchByDescription(){
+    if(this.textSearch){
+      this.isLoaging = true;
+      this.#strategicAxisService.getByDescription$(this.textSearch).pipe(
+        finalize(()=>this.isLoaging=false)
+      )
+      .subscribe({
+        next: (value:ApiResponseInterface<StrategicAxisInterface[]>) => {
+          this.strategicAxisList = value.data;
+        },
+        error: (error) => {
+          console.log('error',error);
+          this.textSearch = '';
+        }
+      });
+    }
+
   }
 
   openForm(strategicAxisId:number=0) {

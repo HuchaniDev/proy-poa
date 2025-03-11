@@ -29,6 +29,15 @@ export class  StrategicAxisService{
     ));
   }
 
+  getByDescription$(description:string){
+    return this.#httpClient.get<ApiResponseInterface<StrategicAxisInterface[]>>(`${this.#endpoint}/by-description/${description}`)
+    .pipe(
+      catchError((error) => {
+        return this.#handleError(error);
+      }
+    ));
+  }
+
   save$(strategicAxis:StrategicAxisInterface){
     return this.#httpClient.post<ApiResponseInterface<object>>(`${this.#endpoint}/`,strategicAxis)
     .pipe(
