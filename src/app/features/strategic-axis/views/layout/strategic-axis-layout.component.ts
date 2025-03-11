@@ -15,11 +15,16 @@ import StrategicAxisFormComponent from "../form/strategic-axis-form.component";
 })
 export default class StrategicAxisLayoutComponent {
   #dialodService=inject(DialogService);
+  
+  
+  
   /**
    *
    */
   constructor() {
     this.openForm();
+
+
   }
 
   openForm(strategicAxisId:number=0) {
