@@ -2,6 +2,7 @@ import { Component, inject } from "@angular/core";
 import authService from "../../../../core/services/auth.service";
 import { Feature } from "../../models/features";
 import PermissionService from "../../../../core/services/permission.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-main-dashboard',
@@ -9,8 +10,8 @@ import PermissionService from "../../../../core/services/permission.service";
   standalone: true
 })
 export default class MainDashboardComponent {
+  #routes = inject(Router);
   permissionService = inject(PermissionService);
- authService = inject(authService);
 
  constructor() {
 
@@ -22,7 +23,7 @@ export default class MainDashboardComponent {
       route: '/dashboard',
       icon: 'dashboard',
       color: '',
-      roles: ['Admin','other']
+      roles: ['Admin','']
     },
     {
       name: 'Users',
@@ -32,7 +33,7 @@ export default class MainDashboardComponent {
       roles: ['Admin']
     },
     {
-      name: 'Gestion',
+      name: 'Gestiones',
       route: '/management',
       icon: 'settings',
       color: '',
@@ -50,11 +51,18 @@ export default class MainDashboardComponent {
       route: '/official',
       icon: 'settings',
       color: '',
-      roles: ['other']
+      roles: ['Admin']
     },
     {
       name: 'Reportes',
       route: '/report',
+      icon: 'settings',
+      color: '',
+      roles: ['Admin','Planificador']
+    },
+    {
+      name: 'Eje Estrategico',
+      route: '/strategic-axis',
       icon: 'settings',
       color: '',
       roles: ['Admin']
@@ -64,7 +72,11 @@ export default class MainDashboardComponent {
       route: '/poa',
       icon: 'settings',
       color: '',
-      roles: ['Admin']
+      roles: ['Director','Planificador']
     },
   ];
+
+  navigateTo(route: string) {
+    this.#routes.navigate([route]);
+  }
 }

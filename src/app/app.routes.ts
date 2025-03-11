@@ -7,14 +7,14 @@ export const routes: Routes = [
     loadChildren: () => import('./features/login/login.routes')
   },
   {
-    path: 'dashboard',
+    path: '',
     loadChildren: () => import('./features/main-layout/main-layout.routes'),
     canActivate: [authGuard]
   },
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'login'
+    redirectTo: 'dashboard'
   },
   {
     path: '**',

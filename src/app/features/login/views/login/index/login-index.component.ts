@@ -7,13 +7,14 @@ import authService from "../../../../../core/services/auth.service";
 import { Router } from "@angular/router";
 import loginService from "../../../services/login.service";
 import { UserAuthInterface } from "../../../models/user-auth.interface";
+import { InputDirectivePadding } from "../../../../../shared/directives/input-usepading.directive";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login-index.component.html',
   standalone: true,
   imports: [
-    InputDirective,
+    InputDirectivePadding,
     ReactiveFormsModule,
     FormsModule,
     CommonModule,
