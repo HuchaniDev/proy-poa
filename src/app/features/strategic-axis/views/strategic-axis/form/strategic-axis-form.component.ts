@@ -1,9 +1,9 @@
 import { Component, inject } from "@angular/core";
-import { DialogHeaderComponent } from "../../../../shared/controls/dialog-header/dialog-header.component";
-import { InputDirective } from "../../../../shared/directives/input.directive";
-import { DialogService } from "../../../../shared/controls/dialog";
+import { DialogHeaderComponent } from "../../../../../shared/controls/dialog-header/dialog-header.component";
+import { InputDirective } from "../../../../../shared/directives/input.directive";
+import { DialogService } from "../../../../../shared/controls/dialog";
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
-import { StrategicAxisService } from "../../services/strategic-axis.service";
+import { StrategicAxisService } from "../../../services/strategic-axis.service";
 import { finalize } from "rxjs";
 
 @Component({
