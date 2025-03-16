@@ -20,6 +20,10 @@ const mainLayoutRoutes: Routes = [
         path:'strategic-axis',
         component: StrategicAxisLayoutComponent,
         loadChildren: () => import('../strategic-axis/strategic-axis.routes')
+      },
+      {
+        path:'strategic-line',
+        loadComponent:() => import('./views/strategic-line/index/strategic-line-index.component')
       }
     ]
   }
