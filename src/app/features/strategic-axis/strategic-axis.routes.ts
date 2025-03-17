@@ -3,7 +3,7 @@ import { Routes } from '@angular/router';
 const strategicAxisRoutes: Routes = [
   {
     path: '',
-    loadComponent: () => import('./views/layout/strategic-axis-layout.component')
+    loadComponent: () => import('./views/strategic-axis/index/strategic-axis-index.component')
   },
   {
     path: 'strategic-line',

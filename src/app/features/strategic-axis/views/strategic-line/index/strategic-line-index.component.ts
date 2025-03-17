@@ -8,4 +8,6 @@ import { Component } from "@angular/core";
 
   ]
 })
-export default class StrategicLineIndex {}
+export default class StrategicLineIndex {
+  
+}
