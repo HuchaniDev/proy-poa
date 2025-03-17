@@ -19,13 +19,6 @@ export default class MainDashboardComponent {
 
   features: Feature[] = [
     {
-      name: 'Dashboard',
-      route: '/dashboard',
-      icon: 'dashboard',
-      color: '',
-      roles: ['Admin','']
-    },
-    {
       name: 'Users',
       route: '/users',
       icon: 'people',

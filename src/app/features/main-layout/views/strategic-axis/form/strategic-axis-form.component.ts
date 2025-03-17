@@ -3,8 +3,11 @@ import { DialogHeaderComponent } from "../../../../../shared/controls/dialog-hea
 import { InputDirective } from "../../../../../shared/directives/input.directive";
 import { DialogService } from "../../../../../shared/controls/dialog";
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
-import { StrategicAxisService } from "../../../services/strategic-axis.service";
 import { finalize } from "rxjs";
+import { StrategicAxisService } from "../../../services/strategic-axis/strategic-axis.service";
+import { ApiResponseInterface } from "../../../../../core/models/api-response.interface";
+import StrategicAxisIndexComponent from "../index/strategic-axis-index.component";
+import { StrategicAxisInterface } from "../../../models/strategic-axis/strategic.interface";
 
 @Component({
   selector: 'app-strategic-axis-form',
@@ -17,7 +20,7 @@ import { finalize } from "rxjs";
   ]
 })
 export default class StrategicAxisFormComponent {
-  #dialogService = inject(DialogService);
+  #dialogService = inject(DialogService); // DialogService
   #strategyAxisService = inject(StrategicAxisService);
 
   strategicAxisId: number |null = this.#dialogService.dialogConfig?.data?.strategicAxisId;
@@ -61,7 +64,7 @@ export default class StrategicAxisFormComponent {
   #initializeComponent(){
     this.formGroup = new FormGroup({
       id: new FormControl<number|null>(this.strategicAxisId),
-      code: new FormControl<string>('',[Validators.required,Validators.pattern("^[0-9]*$") ]),
+      code: new FormControl<number|null>(null,[Validators.required,Validators.pattern("^[0-9]*$") ]),
       description: new FormControl<string>('',[Validators.required]),
     });
   }
@@ -73,7 +76,7 @@ export default class StrategicAxisFormComponent {
       this.#strategyAxisService.getById$(this.strategicAxisId)
       .pipe(finalize(()=>this.isProcessing=false))
       .subscribe({
-        next: (response) => {
+        next: (response: ApiResponseInterface<StrategicAxisInterface>) => {
           this.formGroup.setValue(
             {
               id: response.data.id,

@@ -3,11 +3,11 @@ import { PageHeaderComponent } from "../../../../../shared/controls/page-header/
 import { InputDirective } from "../../../../../shared/directives/input.directive";
 import { DialogService } from "../../../../../shared/controls/dialog";
 import StrategicAxisFormComponent from "../form/strategic-axis-form.component";
-import { StrategicAxisService } from "../../../services/strategic-axis.service";
 import { finalize, of, switchMap } from "rxjs";
-import { StrategicAxisInterface } from "../../../models/strategic.interface";
 import { ApiResponseInterface } from "../../../../../core/models/api-response.interface";
 import { FormsModule } from "@angular/forms";
+import { StrategicAxisService } from "../../../services/strategic-axis/strategic-axis.service";
+import { StrategicAxisInterface } from "../../../models/strategic-axis/strategic.interface";
 
 @Component({
   selector: 'app-strategic-axis-layout',
