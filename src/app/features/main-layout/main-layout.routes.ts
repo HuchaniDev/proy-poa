@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import MainLayoutComponent from './views/main-layout/main-layout.component';
-import StrategicAxisLayoutComponent from '../strategic-axis/views/layout/strategic-axis-layout.component';
+import StrategicAxisLayoutComponent from '../strategic-axis/views/strategic-axis/index/strategic-axis-index.component';
 
 const mainLayoutRoutes: Routes = [
   {
@@ -18,7 +18,7 @@ const mainLayoutRoutes: Routes = [
       },
       {
         path:'strategic-axis',
-        component: StrategicAxisLayoutComponent,
+        component:StrategicAxisLayoutComponent ,
         loadChildren: () => import('../strategic-axis/strategic-axis.routes')
       }
     ]

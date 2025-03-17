@@ -1,17 +1,17 @@
 import { Component, inject } from "@angular/core";
-import { PageHeaderComponent } from "../../../../shared/controls/page-header/page-header.component";
-import { InputDirective } from "../../../../shared/directives/input.directive";
-import { DialogService } from "../../../../shared/controls/dialog";
-import StrategicAxisFormComponent from "../strategic-axis/form/strategic-axis-form.component";
-import { StrategicAxisService } from "../../services/strategic-axis.service";
+import { PageHeaderComponent } from "../../../../../shared/controls/page-header/page-header.component";
+import { InputDirective } from "../../../../../shared/directives/input.directive";
+import { DialogService } from "../../../../../shared/controls/dialog";
+import StrategicAxisFormComponent from "../form/strategic-axis-form.component";
+import { StrategicAxisService } from "../../../services/strategic-axis.service";
 import { finalize, of, switchMap } from "rxjs";
-import { StrategicAxisInterface } from "../../models/strategic.interface";
-import { ApiResponseInterface } from "../../../../core/models/api-response.interface";
+import { StrategicAxisInterface } from "../../../models/strategic.interface";
+import { ApiResponseInterface } from "../../../../../core/models/api-response.interface";
 import { FormsModule } from "@angular/forms";
 
 @Component({
   selector: 'app-strategic-axis-layout',
-  templateUrl: './strategic-axis-layout.component.html',
+  templateUrl: './strategic-axis-index.component.html',
   standalone: true,
   imports: [
     PageHeaderComponent,
@@ -20,7 +20,7 @@ import { FormsModule } from "@angular/forms";
 
   ]
 })
-export default class StrategicAxisLayoutComponent {
+export default class StrategicAxisIndexComponent {
   #dialodService=inject(DialogService);
   #strategicAxisService=inject(StrategicAxisService);
   
