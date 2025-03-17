@@ -1,8 +1,8 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { catchError, throwError } from "rxjs";
-import { ApiResponseInterface } from "../../../core/models/api-response.interface";
-import { StrategicAxisInterface } from "../models/strategic.interface";
+import { StrategicAxisInterface } from "../../models/strategic-axis/strategic.interface";
+import { ApiResponseInterface } from "../../../../core/models/api-response.interface";
 
 @Injectable({
   providedIn: 'root'

@@ -7,18 +7,26 @@
   <div class="flex justify-center items-center">
 
     <div class="grid grid-cols-2 justify-center items-center gap-14 mt-4">
-      @for (feature of features; track $index) {
-        @if (permissionService.hasAnyRole(feature.roles)) {
-
+     
+        @if (permissionService.hasRole('Administrador')) {
           <div class="bg-primary w-80 h-32 rounded-lg flex justify-center items-center text-white hover:bg-primary-dark cursor-pointer hover:shadow-md hover:shadow-yellow-300 transition duration-300 ease-in-out"
-            (click)="navigateTo(feature.route)">
+            (click)="navigateTo('strategic-axis')">
             <div></div>
             <div>
-              <h3 class="font-semibold text-xl">{{feature.name}}</h3>
+              <h3 class="font-semibold text-xl">Ejes estrategicos</h3>
             </div>
           </div>
         }
-      }
+      
+        @if (permissionService.hasRole('Planificador')) {
+          <div class="bg-primary w-80 h-32 rounded-lg flex justify-center items-center text-white hover:bg-primary-dark cursor-pointer hover:shadow-md hover:shadow-yellow-300 transition duration-300 ease-in-out"
+            (click)="navigateTo('strategic-axis')">
+            <div></div>
+            <div>
+              <h3 class="font-semibold text-xl">Ejes estrategicos</h3>
+            </div>
+          </div>
+        }
     </div>
   </div>
     
