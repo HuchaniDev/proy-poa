@@ -46,7 +46,9 @@
               <td class="p-2">{{axis.description}}</td>
               <td class="p-2">
                 <div class="flex justify-center items-center h-7 p-2">
-                  <button class="w-28 p-1  bg-green-300 rounded-2xl hover:bg-green-600 hover:text-white">ver líneas</button>
+                  <button class="w-28 p-1  bg-green-300 rounded-2xl hover:bg-green-600 hover:text-white"
+                    (click)="viewLines(axis.id)"
+                  >ver líneas</button>
                 </div>
               </td>
               <td class="flex justify-center gap-4">
