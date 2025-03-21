@@ -1,6 +1,8 @@
 import { Component, inject } from "@angular/core";
 import { Router } from "@angular/router";
 import { PageHeaderComponent } from "../../../../../shared/controls/page-header/page-header.component";
+import { DialogService } from "../../../../../shared/controls/dialog/dialog.service";
+import StrategicLineFormComponent from "../Form/strategic-line-form.component";
 
 @Component({
     selector:'app-strategic-line',
@@ -10,6 +12,7 @@ import { PageHeaderComponent } from "../../../../../shared/controls/page-header/
 })
 export default class StrategicLineComponent{
 	#router = inject(Router);
+	#dialog = inject(DialogService);
 
 	strateAxisId:number | null = null;
 
@@ -24,5 +27,20 @@ export default class StrategicLineComponent{
 
 	returnToAxis(){
 		this.#router.navigate(['strategic-axis']);
+	}
+	openForm(strategicLineId:number=0){
+		this.#dialog.open(StrategicLineFormComponent,{
+			size:{
+        width: '800px',
+        minWidth: '350px',
+        maxWidth: '95%',
+        height: 'auto',
+        maxHeight: '80%'
+      },
+      data:{
+				strategicLine:strategicLineId,
+				strategicAxis:this.strateAxisId
+			}
+		});
 	}
 }

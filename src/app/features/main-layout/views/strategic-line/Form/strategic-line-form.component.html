@@ -6,28 +6,16 @@
   <form [formGroup]="formGroup" class="">
     
     <div class="p-4 flex flex-col gap-5">
-      <div class="w-48">
-        <label for="">Código</label>
-        <input
-          formControlName="code"
-          type="number" app-input useIcon="false" class="w-full p-2 border border-gray-300 rounded-lg" placeholder=" ej: 3">
-          
-          @if (formGroup.get('code')?.hasError('required') && formGroup.get('code')?.touched) {
-            <div class="text-red-500 text-sm">Este campo es requerido</div>
-          }
-          @if (formGroup.get('code')?.hasError('pattern') && formGroup.get('code')?.touched) {
-            <div class="text-red-500 text-sm">Solo números</div>
-          }
-      </div>
-      <div id="description" class="h-56">
-        <label for="">Descripción</label>
+      
+      <div id="name" class="h-56">
+        <label for="">Nombre</label>
         <textarea 
-          formControlName="description"
+          formControlName="name"
           app-input
           class="w-full h-40 p-2 border resize-none border-gray-300 rounded-lg "
           placeholder="Escribe aquí...">
         </textarea>
-        @if (formGroup.get('description')?.hasError('required') && formGroup.get('description')?.touched) {
+        @if (formGroup.get('name')?.hasError('required') && formGroup.get('name')?.touched) {
           <div class="text-red-500 text-sm">Este campo es requerido</div>
         }
        
