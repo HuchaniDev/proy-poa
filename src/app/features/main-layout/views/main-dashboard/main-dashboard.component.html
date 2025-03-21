@@ -7,27 +7,130 @@
   <div class="flex justify-center items-center">
 
     <div class="grid grid-cols-2 justify-center items-center gap-14 mt-4">
-     
         @if (permissionService.hasRole('Administrador')) {
-          <div class="bg-primary w-80 h-32 rounded-lg flex justify-center items-center text-white hover:bg-primary-dark cursor-pointer hover:shadow-md hover:shadow-yellow-300 transition duration-300 ease-in-out"
-            (click)="navigateTo('strategic-axis')">
-            <div></div>
-            <div>
-              <h3 class="font-semibold text-xl">Ejes estrategicos</h3>
+          <div class="bg-gray-400 grid-cols-2 p-4 w-80 h-32 rounded-lg flex items-center text-white hover:bg-primary-dark cursor-pointer hover:shadow-md hover:shadow-yellow-300 transition duration-300 ease-in-out">
+            
+            <div> 
+              <h3 class="font-bold flex-grow text-xl">Usuario</h3>
+              
+              <span class="text-sm">Administrar</span>
+            </div>
+            <div class="float-right ml-auto">
+              <img class="h-24" src="assets/images/user.png" alt="Usuario" >
             </div>
           </div>
+          
         }
-      
+        @if (permissionService.hasRole('Administrador')) {
+          <div class="bg-blue-500 grid-cols-2 p-4 w-80 h-32 rounded-lg flex items-center text-white hover:bg-primary-dark cursor-pointer hover:shadow-md hover:shadow-yellow-300 transition duration-300 ease-in-out">
+            
+            <div> 
+              <h3 class="font-bold flex-grow text-xl">Gestión</h3>
+              
+              <span class="text-sm">Administrar</span>
+            </div>
+            <div class="float-right ml-auto">
+              <img class="h-24" src="assets/images/Calendar.png" alt="Usuario" >
+            </div>
+          </div>
+          
+        }
+        @if (permissionService.hasRole('Administrador')) {
+          <div class="bg-green-600 grid-cols-2 p-4 w-80 h-32 rounded-lg flex items-center text-white hover:bg-primary-dark cursor-pointer hover:shadow-md hover:shadow-yellow-300 transition duration-300 ease-in-out">
+            
+            <div> 
+              <h3 class="font-bold flex-grow text-xl">Unidad</h3>
+              
+              <span class="text-sm">Administrar</span>
+            </div>
+            <div class="float-right ml-auto">
+              <img class="h-24" src="assets/images/Unit.png" alt="Usuario" >
+            </div>
+          </div>
+          
+        }
+        @if (permissionService.hasRole('Administrador')) {
+          <div class="bg-orange-900 grid-cols-2 p-4 w-80 h-32 rounded-lg flex items-center text-white hover:bg-primary-dark cursor-pointer hover:shadow-md hover:shadow-yellow-300 transition duration-300 ease-in-out">
+            
+            <div> 
+              <h3 class="font-bold flex-grow text-xl">Funcionario</h3>
+              
+              <span class="text-sm">Administrar</span>
+            </div>
+            <div class="float-right ml-auto">
+              <img class="h-24" src="assets/images/Funcionary.png" alt="Usuario" >
+            </div>
+          </div>
+          
+        }
+        @if (permissionService.hasRole('Administrador')) {
+          <div class="bg-orange-400 grid-cols-2 p-4 w-80 h-32 rounded-lg flex items-center text-white hover:bg-primary-dark cursor-pointer hover:shadow-md hover:shadow-yellow-300 transition duration-300 ease-in-out"
+            (click)="navigateTo('strategic-axis')">
+            
+            <div> 
+              <h3 class="font-bold flex-grow text-xl">Eje Estratégico</h3>
+              
+              <span class="text-sm">Administrar</span>
+            </div>
+            <div class="float-right ml-auto">
+              <img class="h-24" src="assets/images/Ejes.png" alt="Usuario" >
+            </div>
+          </div>
+          
+        }
+        @if (permissionService.hasRole('Administrador')) {
+          <div class="bg-blue-900 grid-cols-2 p-4 w-80 h-32 rounded-lg flex items-center text-white hover:bg-primary-dark cursor-pointer hover:shadow-md hover:shadow-yellow-300 transition duration-300 ease-in-out">
+            
+            <div> 
+              <h3 class="font-bold flex-grow text-xl">SubUnidad</h3>
+              
+              <span class="text-sm">Administrar</span>
+            </div>
+            <div class="float-right ml-auto">
+              <img class="h-24" src="assets/images/Unit.png" alt="Usuario" >
+            </div>
+          </div>
+          
+        }
         @if (permissionService.hasRole('Planificador')) {
-          <div class="bg-primary w-80 h-32 rounded-lg flex justify-center items-center text-white hover:bg-primary-dark cursor-pointer hover:shadow-md hover:shadow-yellow-300 transition duration-300 ease-in-out"
-            (click)="navigateTo('strategic-axis')">
-            <div></div>
-            <div>
-              <h3 class="font-semibold text-xl">Ejes estrategicos</h3>
+          <div class="bg-blue-900 grid-cols-2 p-4 w-80 h-32 rounded-lg flex items-center text-white hover:bg-primary-dark cursor-pointer hover:shadow-md hover:shadow-yellow-300 transition duration-300 ease-in-out">
+            
+            <div> 
+              <h3 class="font-bold flex-grow text-xl">Poa</h3>
+              
+              <span class="text-sm">Formular</span>
+            </div>
+            <div class="float-right ml-auto">
+              <img class="h-24" src="assets/images/POA.png" alt="Usuario" >
             </div>
           </div>
+          
         }
+        @if (permissionService.hasRole('Planificador')) {
+          <div class="bg-orange-400 grid-cols-2 p-4 w-80 h-32 rounded-lg flex items-center text-white hover:bg-primary-dark cursor-pointer hover:shadow-md hover:shadow-yellow-300 transition duration-300 ease-in-out">
+            
+            <div> 
+              <h3 class="font-bold flex-grow text-xl">Reportes</h3>
+              
+              <span class="text-sm">Administrar</span>
+            </div>
+            <div class="float-right ml-auto">
+              <img class="h-24" src="assets/images/Objetiv.png" alt="Usuario" >
+            </div>
+          </div>
+          
+        }
+
+        
+      
+        
     </div>
   </div>
     
 </div>
+
+<footer class="mt-8 p-4 text-center text-gray-700 border-t">
+  <hr class="bg-primary-dark h-1 w-full mt-2">
+  SERVICIO DEPARTAMENTAL DE SALUD - SEDES 2024 <br>
+  Cochabamba - Bolivia
+</footer>
