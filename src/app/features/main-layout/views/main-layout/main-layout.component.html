@@ -1,8 +1,13 @@
 <div class="flex w-screen h-screen overflow-hidden bg-primary-light">
   <div id="main" class="flex flex-col w-full overflow-hidden">
     <app-main-header/>
-    <main class="flex-1 w-full h-full overflow-y-auto p-2">
+    <main class=" w-full h-full p-2 overflow-hidden">
       <router-outlet></router-outlet>
     </main>
+    <footer class="px-4 py-2 text-center text-gray-700 border-t">
+      <hr class="bg-primary-dark h-1 w-full mt-2">
+      SERVICIO DEPARTAMENTAL DE SALUD - SEDES 2024 <br>
+      Cochabamba - Bolivia
+    </footer>
   </div>
 </div>

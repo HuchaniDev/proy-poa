@@ -8,6 +8,7 @@ import { ApiResponseInterface } from "../../../../../core/models/api-response.in
 import { FormsModule } from "@angular/forms";
 import { StrategicAxisService } from "../../../services/strategic-axis/strategic-axis.service";
 import { StrategicAxisInterface } from "../../../models/strategic-axis/strategic.interface";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-strategic-axis-layout',
@@ -21,6 +22,7 @@ import { StrategicAxisInterface } from "../../../models/strategic-axis/strategic
   ]
 })
 export default class StrategicAxisIndexComponent {
+  #router = inject(Router);
   #dialodService=inject(DialogService);
   #strategicAxisService=inject(StrategicAxisService);
   
@@ -122,5 +124,12 @@ export default class StrategicAxisIndexComponent {
     return this.#strategicAxisService.getAll$().pipe(finalize(()=>{
       console.log('finalizo');
     }))
+  }
+
+  viewLines(axisId:number){
+    console.log('viewsLine',axisId);
+    this.#router.navigate(['strategic-line'],{
+      state:axisId.toString
+    });
   }
 }
