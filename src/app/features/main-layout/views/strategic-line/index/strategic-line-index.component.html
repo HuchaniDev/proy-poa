@@ -6,6 +6,7 @@
             </svg>              
         </button>
         <page-header title="Gestión de Líneas y Acciones" description=""></page-header>
+        <p>{{strategicAxis?.description}}</p>
     </div>
 
     <div class="grid grid-cols-1 xl:grid-cols-[auto,650px]  h-full p-1 gap-4 overflow-hidden">
@@ -13,7 +14,7 @@
         
             <div class="flex justify-end">
               <button 
-                class="pr-5 flex items-center gap-2 border-primary border-2 rounded-md px-2 bg-primary hover:shadow-sm hover:border-yellow-600 hover:shadow-yellow-400 text-white cursor-pointer"
+                class="pr-5 py-1 flex items-center gap-2 border-primary border-2 rounded-md px-2 bg-primary hover:shadow-sm hover:border-yellow-600 hover:shadow-yellow-400 text-white cursor-pointer"
                 (click)="openForm()"
                 >
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
@@ -24,34 +25,39 @@
             </div>
                 <div class="h-full overflow-y-auto">
                     <table class="table w-full ">
-                        <thead class="sticky top-0 z-20">
-                            <tr class="bg-primary text-gray-900 [&amp;>th:first-child]:rounded-tl-lg [&amp;>th:last-child]:rounded-tr-lg [&amp;>th]:px-3 [&amp;>th]:select-none [&amp;>th]:py-1 [&amp;>th]:cursor-pointer [&amp;>th]:font-normal">
-                                <th class="w-12">N°</th>
-                                <th class="min-w-80 w-96">DESCRIPCION</th>
+                        <thead class="sticky top-0 z-20 bg-gray-200">
+                            <tr class="h-12 text-gray-900 [&amp;>th:first-child]:rounded-tl-lg [&amp;>th:last-child]:rounded-tr-lg [&amp;>th]:px-3 [&amp;>th]:select-none [&amp;>th]:py-1 [&amp;>th]:cursor-pointer [&amp;>th]:font-normal">
+                                <th class="w-12 font-bold">N°</th>
+                                <th class="min-w-80 w-96">LINEAS ESTRATEGICAS</th>
                                 <th class="w-72">ACCIONES</th>
                                 <th class="w-40"></th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-gray-200 overflow-y-auto">
+                        <tbody class="divide-y divide-gray-200  overflow-y-auto">
                             <!--container-->
-                          @for (item of [1,2,3,4,5,6,7,7,8,9,9,1,1,1,1,1]; track $index) {
+                          @for (strategicLine of strategicLines; track $index) {
 
-                            <tr class="bg-gray-100">
+                            <tr class=""
+                                [ngClass]="{'bg-sky-400/60':strategicLine.id === strategicLineIdSelected, 'bg-gray-100': strategicLine.id !== strategicLineIdSelected}">
                                 <td class="p-2 text-center">{{$index+1}}</td>
-                                <td class="p-2">Eje de Planificaciòn</td>
+                                <td class="p-2">{{strategicLine.name}}</td>
                                 <td class="p-2">
                                     <div class="flex justify-center items-center h-7 p-2">
-                                        <button class="w-28 p-1 bg-green-300 rounded-2xl hover:bg-green-600 hover:text-white">ver acciones
+                                        <button class="w-28 p-1 bg-green-300 rounded-2xl hover:bg-green-600 hover:text-white"
+                                        (click)="viewActions(strategicLine.id)"
+                                        >ver acciones
                                         </button>
                                     </div>
                                 </td>
                                 <td>
                                   <div class="flex justify-center gap-4">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 hover:cursor-pointer hover:text-primary">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 hover:cursor-pointer hover:text-primary"
+                                      (click)="openForm(strategicLine.id)">
                                       <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10">
                                       </path>
                                     </svg>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 hover:cursor-pointer hover:text-red-500">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 hover:cursor-pointer hover:text-red-500"
+                                      (click)="delete(strategicLine.id)">
                                       <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0">
                                       </path>
                                     </svg>
@@ -62,12 +68,53 @@
                         </tbody>
                     </table>
                 </div>
-
-            
         </div>
+        <div class="rounded-lg shadow-lg overflow-y-auto">
+            <h2 class="text-center p-2 font-semibold text-lg">Acciones estrategicas</h2>
+            <table class="table w-full ">
+                <thead class="sticky top-0 z-20 bg-gray-200">
+                    <tr class="h-12 text-gray-900 [&amp;>th:first-child]:rounded-tl-lg [&amp;>th:last-child]:rounded-tr-lg [&amp;>th]:px-3 [&amp;>th]:select-none [&amp;>th]:py-1 [&amp;>th]:cursor-pointer [&amp;>th]:font-normal">
+                        <th class="w-12 font-bold">N°</th>
+                        <th class="min-w-80 w-96">ACCIONES ESTRATEGICAS</th>
+                        <th class="w-72">ACCIONES</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200  overflow-y-auto">
+                    <!--container-->
+                    @for (strategicAction of [1,2,3,34,4,6]; track $index) {
 
-        <div class="bg-white rounded-lg shadow-lg">hola</div>
+                    <tr class="bg-slate-100"
+                        >
+                        <td class="p-2 text-center">{{$index+1}}</td>
+                        <td class="p-2">nombre ade accion</td>
+                        
+                        <td>
+                            <div class="flex justify-center gap-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 hover:cursor-pointer hover:text-primary"
+                                >
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10">
+                                </path>
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 hover:cursor-pointer hover:text-red-500"
+                                >
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0">
+                                </path>
+                            </svg>
+                            </div>
+                        </td>
+                    </tr>
+                }                            
+            </tbody>
+        </table>
+        <div class="bg-primary/30 rounded-lg w-full flex justify-center p-1 my-2">
+            <button class="flex gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+                Agregar Accion
+            </button>
+
+        </div>
+        </div>
     </div>
-
-    
 </div>
