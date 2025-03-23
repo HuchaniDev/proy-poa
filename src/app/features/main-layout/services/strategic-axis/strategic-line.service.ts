@@ -32,6 +32,23 @@ getAll$(strategicAxisId:number){
 
 }
 
+getById$(strategicLineId:number){
+  return this.#httpClient.get<ApiResponseInterface<StrategicLineInterface>>(`${this.#endpoint}/${strategicLineId}`)
+  .pipe(
+    catchError((error) => {
+      return this.#handleError(error);
+    }
+  ));
+}
+
+delete$(strategicLineId:number){
+  return this.#httpClient.delete<ApiResponseInterface<object>>(`${this.#endpoint}/${strategicLineId}`)
+  .pipe(
+    catchError((error) => {
+      return this.#handleError(error);
+    }
+  ));
+}
 
 #handleError(error: HttpErrorResponse) {
     let errorMessage = '';

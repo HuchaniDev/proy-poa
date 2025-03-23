@@ -9,6 +9,7 @@ import { ApiResponseInterface } from "../../../../../core/models/api-response.in
 import StrategicLineIndexComponent from "../index/strategic-line-index.component";
 import { StrategicAxisInterface } from "../../../models/strategic-axis/strategic.interface";
 import { StrategicLineService } from "../../../services/strategic-axis/strategic-line.service";
+import { StrategicLineInterface } from "../../../models/strategic-axis/strategic-line.interface";
 
 @Component({
   selector: 'app-strategic-axis-form',
@@ -25,7 +26,7 @@ export default class StrategicLineFormComponent {
   #strategicLineService = inject(StrategicLineService);
 
   strategicLineId: number |null = this.#dialogService.dialogConfig?.data?.strategicLine as number;
-  strategicAxisId: number |null = this.#dialogService.dialogConfig?.data?.strategicAxic as number;
+  strategicAxisId: number |null = this.#dialogService.dialogConfig?.data?.strategicAxis as number;
   isProcessing = false;
   message = '';
 
@@ -67,35 +68,35 @@ export default class StrategicLineFormComponent {
 
   #initializeComponent(){
     this.formGroup = new FormGroup({
-      id: new FormControl<number|null>(this.strategicAxisId),
+      id: new FormControl<number>(0),
       name: new FormControl<string>('',[Validators.required]),
       strategicAxisId: new FormControl<number|null>(this.strategicAxisId,[Validators.required]),
     });
   }
 
   #loadData(){
-  //   if(this.strategicAxisId&& this.strategicAxisId>0){
-  //     this.isProcessing = true;
+    if(this.strategicLineId&& this.strategicLineId>0){
+      this.isProcessing = true;
 
-  //     this.#strategyAxisService.getById$(this.strategicAxisId)
-  //     .pipe(finalize(()=>this.isProcessing=false))
-  //     .subscribe({
-  //       next: (response: ApiResponseInterface<StrategicAxisInterface>) => {
-  //         this.formGroup.setValue(
-  //           {
-  //             id: response.data.id,
-  //             code: response.data.code,
-  //             description: response.data.description
-  //           }
-  //         );
-  //       },
-  //       error: (error) => {
-  //         this.message = error.error.errors;
-  //         console.log('error',error);
-  //         this.close(false);
-  //       }
-  //     });
-  //   }
-  // }
+      this.#strategicLineService.getById$(this.strategicLineId)
+      .pipe(finalize(()=>this.isProcessing=false))
+      .subscribe({
+        next: (response: ApiResponseInterface<StrategicLineInterface>) => {
+          this.formGroup.setValue(
+            {
+              id: response.data.id,
+              name: response.data.name,
+              strategicAxisId: response.data.strategicAxisId
+            }
+          );
+        },
+        error: (error) => {
+          this.message = error.error.errors;
+          console.log('error',error);
+          this.close(false);
+        }
+      });
+    }
   }
+  
 }

@@ -126,10 +126,10 @@ export default class StrategicAxisIndexComponent {
     }))
   }
 
-  viewLines(axisId:number){
-    console.log('viewsLine',axisId);
+  viewLines(axis:StrategicAxisInterface){
+    console.log('viewsLine',axis);
     this.#router.navigate(['strategic-line'],{
-      state:axisId.toString
+      state:axis
     });
   }
 }
