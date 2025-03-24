@@ -21,7 +21,7 @@ const mainLayoutRoutes: Routes = [
       },
       {
         path:'strategic-line',
-        loadComponent:() => import('./views/strategic-line/index/strategic-line-index.component'),
+        loadComponent:() => import('./views/strategic-axis/strategic-line/index/strategic-line-index.component'),
       }
 
     ]

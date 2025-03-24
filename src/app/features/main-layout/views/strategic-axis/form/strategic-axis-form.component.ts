@@ -6,7 +6,6 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angula
 import { finalize } from "rxjs";
 import { StrategicAxisService } from "../../../services/strategic-axis/strategic-axis.service";
 import { ApiResponseInterface } from "../../../../../core/models/api-response.interface";
-import StrategicAxisIndexComponent from "../index/strategic-axis-index.component";
 import { StrategicAxisInterface } from "../../../models/strategic-axis/strategic.interface";
 
 @Component({
@@ -20,7 +19,7 @@ import { StrategicAxisInterface } from "../../../models/strategic-axis/strategic
   ]
 })
 export default class StrategicAxisFormComponent {
-  #dialogService = inject(DialogService); // DialogService
+  #dialogService = inject(DialogService); 
   #strategyAxisService = inject(StrategicAxisService);
 
   strategicAxisId: number |null = this.#dialogService.dialogConfig?.data?.strategicAxisId;

@@ -2,7 +2,6 @@ import { Component } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterLink, RouterLinkActive, RouterOutlet } from "@angular/router";
 import MainHeaderComponent from "../../controls/main-header/main-header.component";
-import { Feature } from "../../models/features";
 
 @Component({
   selector: 'app-main-layout',

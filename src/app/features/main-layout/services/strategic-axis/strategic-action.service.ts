@@ -1,18 +1,18 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { catchError, throwError } from "rxjs";
-import { StrategicAxisInterface } from "../../models/strategic-axis/strategic.interface";
 import { ApiResponseInterface } from "../../../../core/models/api-response.interface";
+import { StrategicAction } from "../../models/strategic-axis/strategic-actions.interface";
 
 @Injectable({
   providedIn: 'root'
 })
-export class  StrategicAxisService{
+export class StrategicActionService {
   #httpClient = inject(HttpClient);
-  #endpoint="http://localhost:5256/strategic-axis";
+  #endpoint="http://localhost:5256/strategic-action";
 
-  getAll$(){
-    return this.#httpClient.get<ApiResponseInterface<StrategicAxisInterface[]>>(`${this.#endpoint}/`)
+  getStrategicActionByLineId$(strategicLineId:number){
+    return this.#httpClient.get<ApiResponseInterface<StrategicAction[]>>(`${this.#endpoint}/strategic-line-id/${strategicLineId}`)
     .pipe(
       catchError((error) => {
         return this.#handleError(error);
@@ -20,8 +20,8 @@ export class  StrategicAxisService{
     ));
   }
 
-  getById$(strategicAxisId:number){
-    return this.#httpClient.get<ApiResponseInterface<StrategicAxisInterface>>(`${this.#endpoint}/${strategicAxisId}`)
+  getById$(id:number){
+    return this.#httpClient.get<ApiResponseInterface<StrategicAction>>(`${this.#endpoint}/${id}`)
     .pipe(
       catchError((error) => {
         return this.#handleError(error);
@@ -29,8 +29,8 @@ export class  StrategicAxisService{
     ));
   }
 
-  getByDescription$(description:string){
-    return this.#httpClient.get<ApiResponseInterface<StrategicAxisInterface[]>>(`${this.#endpoint}/by-description/${description}`)
+  save$(strategicAction:StrategicAction){
+    return this.#httpClient.post<ApiResponseInterface<object>>(`${this.#endpoint}`,strategicAction)
     .pipe(
       catchError((error) => {
         return this.#handleError(error);
@@ -38,20 +38,11 @@ export class  StrategicAxisService{
     ));
   }
 
-  save$(strategicAxis:StrategicAxisInterface){
-    return this.#httpClient.post<ApiResponseInterface<object>>(`${this.#endpoint}/`,strategicAxis)
+  delete$(id:number){
+    return this.#httpClient.delete<ApiResponseInterface<object>>(`${this.#endpoint}/${id}`)
     .pipe(
       catchError((error) => {
-        return this.#handleError(error);
-      }
-    ));
-  }
-
-  delete$(strategicAxisId:number){
-    return this.#httpClient.delete<ApiResponseInterface<object>>(`${this.#endpoint}/${strategicAxisId}`)
-    .pipe(
-      catchError((error) => {
-        return this.#handleError(error);
+        return this.#handleError(error);  
       }
     ));
   }
