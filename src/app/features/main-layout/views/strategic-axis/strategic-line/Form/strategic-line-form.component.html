@@ -1,5 +1,5 @@
 <div class="flex flex-col select-none">
-  <dialog-header [titleHeader]="(strategicAxisId? 'Editar': 'Nueva')+': Línea Estratégica'"
+  <dialog-header [titleHeader]="(strategicAxisId? 'Nueva': 'Nueva')+': Línea Estratégica'"
     (onClose)="close(false)"
   ></dialog-header>
 
@@ -8,7 +8,7 @@
     <div class="p-4 flex flex-col gap-5">
       
       <div id="name" class="h-56">
-        <label for="">Nombre</label>
+        <label for="">Descripción</label>
         <textarea 
           formControlName="name"
           app-input
