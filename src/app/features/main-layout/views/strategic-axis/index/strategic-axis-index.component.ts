@@ -10,7 +10,8 @@ import { StrategicAxisService } from "../../../services/strategic-axis/strategic
 import { StrategicAxisInterface } from "../../../models/strategic-axis/strategic.interface";
 import { Router } from "@angular/router";
 import { DeleteAlertComponent } from "../../../../../shared/controls/delete-alert/delete-alert.component";
-import { Title } from "@angular/platform-browser";
+import { ToastService } from "../../../../../shared/controls/toast-alert/toast.service";
+import { ToastComponent } from "../../../../../shared/controls/toast-alert/toast.component";
 
 @Component({
   selector: 'app-strategic-axis-layout',
@@ -20,10 +21,11 @@ import { Title } from "@angular/platform-browser";
     PageHeaderComponent,
     InputDirective,
     FormsModule,
-
-  ]
+    ToastComponent
+]
 })
 export default class StrategicAxisIndexComponent {
+  #toastService = inject(ToastService);
   #router = inject(Router);
   #dialogService=inject(DialogService);
   #strategicAxisService=inject(StrategicAxisService);
@@ -38,7 +40,7 @@ export default class StrategicAxisIndexComponent {
    *
    */
   constructor() {
- 
+
     this.isLoaging = true;
     this.#loadData$().pipe(finalize(()=>this.isLoaging=false))
     .subscribe({
@@ -73,7 +75,6 @@ export default class StrategicAxisIndexComponent {
   }
 
   openForm(strategicAxisId:number=0) {
-    console.log('openForm',strategicAxisId);
     
     this.#dialogService.open(StrategicAxisFormComponent,{
       size:{
@@ -128,9 +129,12 @@ export default class StrategicAxisIndexComponent {
           .subscribe({
             next: (value:ApiResponseInterface<StrategicAxisInterface[]>) => {
               this.strategicAxisList = value.data;
+              this.#toastService.showToast(value.message,'delete',5000);
+
             },
             error: (error) => {
               console.log('error',error);
+              this.#toastService.showToast(error.error.errors.join(","),'error',5000);
             }
           });
         }
@@ -147,12 +151,11 @@ export default class StrategicAxisIndexComponent {
 
   #loadData$(){
     return this.#strategicAxisService.getAll$().pipe(finalize(()=>{
-      console.log('finalizo');
+      this.isLoaging = false;
     }))
   }
 
   viewLines(axis:StrategicAxisInterface){
-    console.log('viewsLine',axis);
     this.#router.navigate(['strategic-line'],{
       state:axis
     });

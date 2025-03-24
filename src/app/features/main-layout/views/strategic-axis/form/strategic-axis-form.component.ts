@@ -7,6 +7,7 @@ import { finalize } from "rxjs";
 import { StrategicAxisService } from "../../../services/strategic-axis/strategic-axis.service";
 import { ApiResponseInterface } from "../../../../../core/models/api-response.interface";
 import { StrategicAxisInterface } from "../../../models/strategic-axis/strategic.interface";
+import { ToastService } from "../../../../../shared/controls/toast-alert/toast.service";
 
 @Component({
   selector: 'app-strategic-axis-form',
@@ -21,6 +22,7 @@ import { StrategicAxisInterface } from "../../../models/strategic-axis/strategic
 export default class StrategicAxisFormComponent {
   #dialogService = inject(DialogService); 
   #strategyAxisService = inject(StrategicAxisService);
+  #toastService = inject(ToastService);
 
   strategicAxisId: number |null = this.#dialogService.dialogConfig?.data?.strategicAxisId;
   isProcessing = false;
@@ -49,12 +51,17 @@ export default class StrategicAxisFormComponent {
       .subscribe({
         next: (response) => {
           if(response.isSuccess){
+            this.strategicAxisId!>0
+            ?this.#toastService.showToast('Actualizado correctamente','update',5000)
+            :this.#toastService.showToast(response.message,'success',5000)
             this.message = 'Guardado con exito';
             this.close(true);
           }
         },
         error: (error) => {
           this.message = error.error.errors;
+          this.#toastService.showToast(error.error.errors.join(","),'error',5000);
+
         }
       })
     }

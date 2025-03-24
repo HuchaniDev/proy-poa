@@ -16,6 +16,10 @@ const mainLayoutRoutes: Routes = [
         loadComponent: () => import('./views/main-dashboard/main-dashboard.component'),
       },
       {
+        path: 'users',
+        loadComponent: () => import('./views/users/index/user-index.component'),
+      },
+      {
         path:'strategic-axis',
         loadComponent:() => import('./views/strategic-axis/index/strategic-axis-index.component'),
       },

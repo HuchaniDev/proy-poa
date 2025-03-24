@@ -8,8 +8,8 @@
 
     <div class="grid grid-cols-2 justify-center items-center gap-14 mt-4">
         @if (permissionService.hasRole('Administrador')) {
-          <div class="bg-gray-400 grid-cols-2 p-4 w-80 h-32 rounded-lg flex items-center text-white hover:bg-primary-dark cursor-pointer hover:shadow-md hover:shadow-yellow-300 transition duration-300 ease-in-out">
-            
+          <div class="bg-gray-400 grid-cols-2 p-4 w-80 h-32 rounded-lg flex items-center text-white hover:bg-primary-dark cursor-pointer hover:shadow-md hover:shadow-yellow-300 transition duration-300 ease-in-out"
+            (click)="navigateTo('users')">
             <div> 
               <h3 class="font-bold flex-grow text-xl">Usuario</h3>
               
