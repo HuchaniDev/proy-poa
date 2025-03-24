@@ -5,6 +5,7 @@ import { ApiResponseInterface } from "../../../../../../core/models/api-response
 import { DialogService } from "../../../../../../shared/controls/dialog";
 import { StrategicActionFormComponent } from "../form/strategic-action-form.component";
 import { finalize } from "rxjs";
+import { DeleteAlertComponent } from "../../../../../../shared/controls/delete-alert/delete-alert.component";
 
 @Component({
     selector:'app-strategic-action',
@@ -70,19 +71,42 @@ export class StrategicActionComponent{
   }
 
   delete(strategicActionId:number){
-    this.isLoading = true;
-    this.#strategicActionService.delete$(strategicActionId)
-    .pipe(
-      finalize(() => {
-        this.isLoading = false;
-      })
-    )
+    this.#dialogService.open(DeleteAlertComponent,{
+      size:{
+        width: '500px',
+        minWidth: '350px',
+        maxWidth: '50%',
+        height: 'auto',
+        maxHeight: '80%'
+      },
+      data:{
+        title:'Eliminar',
+        message:'¿Está seguro de eliminar el registro?'
+      }
+    })
+    .afterClosed()
     .subscribe({
       next: (response) => {
-        this.getStrategicAction();
+        if(response){
+          this.isLoading = true;
+          this.#strategicActionService.delete$(strategicActionId)
+          .pipe(
+            finalize(() => {
+              this.isLoading = false;
+            })
+          )
+          .subscribe({
+            next: (response) => {
+              this.getStrategicAction();
+            },
+            error: (error) => {
+              console.log('Error al eliminar:', error);
+            }
+          });
+        }
       },
       error: (error) => {
-        console.log('Error al eliminar:', error);
+        console.log('Error al cerrar el dialogo:', error);
       }
     });
   }

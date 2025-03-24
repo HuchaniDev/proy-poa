@@ -1,0 +1,17 @@
+<div class="flex flex-col select-none gap-4 p-5">
+  <div class="flex justify-center items-center">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-28 text-yellow-500 rotate-190">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+    </svg>
+  </div>
+    
+  <div class="flex flex-col items-center gap-2">
+    <h2 class="font-semibold text-2xl">{{title}}</h2>
+    <p>{{message}}</p>
+    <div class="[&>button]:p-2 [&>button]:w-32 [&>button]:rounded-[4px] [&>button]:text-white space-x-2 mt-6">
+      <button (click)="close(true)" class="bg-primary hover:bg-sky-500">Si,bórralo</button>
+      <button (click)="close(false)" class="bg-red-400 hover:bg-red-500">Cancelar</button>
+    </div>
+  </div>
+
+</div>
