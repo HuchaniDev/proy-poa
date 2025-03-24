@@ -1,23 +1,26 @@
-import { Component, inject } from "@angular/core";
+import { Component, inject, signal } from "@angular/core";
 import { Router } from "@angular/router";
-import { PageHeaderComponent } from "../../../../../shared/controls/page-header/page-header.component";
-import { DialogService } from "../../../../../shared/controls/dialog/dialog.service";
+
 import StrategicLineFormComponent from "../Form/strategic-line-form.component";
-import { StrategicAxisInterface } from "../../../models/strategic-axis/strategic.interface";
-import { StrategicLineService } from "../../../services/strategic-axis/strategic-line.service";
-import { StrategicLineInterface } from "../../../models/strategic-axis/strategic-line.interface";
+
 import { finalize } from "rxjs";
 import { CommonModule } from "@angular/common";
+import { DialogService } from "../../../../../../shared/controls/dialog";
+import { PageHeaderComponent } from "../../../../../../shared/controls/page-header";
+import { StrategicLineInterface } from "../../../../models/strategic-axis/strategic-line.interface";
+import { StrategicAxisInterface } from "../../../../models/strategic-axis/strategic.interface";
+import { StrategicLineService } from "../../../../services/strategic-axis/strategic-line.service";
+import { StrategicActionComponent } from "../../strategic-action/index/strategic-action-index.component";
 
 @Component({
     selector:'app-strategic-line',
     templateUrl:'./strategic-line-index.component.html',
     standalone:true,
     imports: [
-			PageHeaderComponent,
-			CommonModule,
-			
-		]
+    PageHeaderComponent,
+    CommonModule,
+    StrategicActionComponent
+]
 })
 export default class StrategicLineComponent{
 	#router = inject(Router);
@@ -28,7 +31,7 @@ export default class StrategicLineComponent{
 	strategicLines:StrategicLineInterface[] = [];
 
 	isLoading = false;
-	strategicLineIdSelected:number = 0;
+	strategicLineIdSelected= signal<number>(0);
 
 	constructor() {
 		this.strategicAxis = history.state;
@@ -78,7 +81,7 @@ export default class StrategicLineComponent{
 			this.#strategicLineService.getAll$(this.strategicAxis.id)
 			.subscribe({
 				next:(response) => {
-					console.log('response',response);
+					//console.log('response',response);
 					this.strategicLines = response.data;
 				},
 				error:(error) => {
@@ -98,7 +101,7 @@ export default class StrategicLineComponent{
 		))
 		.subscribe({
 			next:(response) => {
-				console.log('response',response);
+				//console.log('response',response);
 				this.getByAxisId();
 			},
 			error:(error) => {
@@ -109,6 +112,11 @@ export default class StrategicLineComponent{
 
 
 	viewActions(strategicLineId:number){
-		this.strategicLineIdSelected = strategicLineId;
+		if(strategicLineId===this.strategicLineIdSelected()){
+			this.strategicLineIdSelected.set(0);
+			return;
+		}
+		
+		this.strategicLineIdSelected.set(strategicLineId);
 	}
 }

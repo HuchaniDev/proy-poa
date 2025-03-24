@@ -1,15 +1,13 @@
 import { Component, inject } from "@angular/core";
-import { DialogHeaderComponent } from "../../../../../shared/controls/dialog-header/dialog-header.component";
-import { InputDirective } from "../../../../../shared/directives/input.directive";
-import { DialogService } from "../../../../../shared/controls/dialog";
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { finalize } from "rxjs";
-import { StrategicAxisService } from "../../../services/strategic-axis/strategic-axis.service";
-import { ApiResponseInterface } from "../../../../../core/models/api-response.interface";
-import StrategicLineIndexComponent from "../index/strategic-line-index.component";
-import { StrategicAxisInterface } from "../../../models/strategic-axis/strategic.interface";
-import { StrategicLineService } from "../../../services/strategic-axis/strategic-line.service";
-import { StrategicLineInterface } from "../../../models/strategic-axis/strategic-line.interface";
+import { ApiResponseInterface } from "../../../../../../core/models/api-response.interface";
+import { DialogService } from "../../../../../../shared/controls/dialog";
+import { DialogHeaderComponent } from "../../../../../../shared/controls/dialog-header";
+import { InputDirective } from "../../../../../../shared/directives/input.directive";
+import { StrategicLineInterface } from "../../../../models/strategic-axis/strategic-line.interface";
+import { StrategicLineService } from "../../../../services/strategic-axis/strategic-line.service";
+
 
 @Component({
   selector: 'app-strategic-axis-form',
