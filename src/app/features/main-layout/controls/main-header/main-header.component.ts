@@ -1,6 +1,7 @@
 import { Component, effect, inject } from "@angular/core";
 import authService from "../../../../core/services/auth.service";
 import { UpperCasePipe } from "@angular/common";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-main-header',
@@ -13,6 +14,7 @@ import { UpperCasePipe } from "@angular/common";
 })
 export default class MainHeaderComponent {
   #authService = inject(authService)
+  #router = inject(Router)
   title = 'POA - SPO'
 
   userName:string|null = null
@@ -24,13 +26,16 @@ export default class MainHeaderComponent {
       this.userName = user.username;
       this.role = user.role;
     }
-    console.log('user', user);
-    console.log('userName', this.userName);
+    // console.log('user', user);
+    // console.log('userName', this.userName);
     
   });
 
   logout(){
     this.#authService.logout();
+  }
+  navigateToHome(){
+    this.#router.navigate(['/']);
   }
 
 }

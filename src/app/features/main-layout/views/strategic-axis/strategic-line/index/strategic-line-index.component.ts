@@ -38,7 +38,6 @@ export default class StrategicLineComponent{
 
 	constructor() {
 		this.strategicAxis = history.state;
-		console.log('this.strateAxisId',this.strategicAxis);
 		this.getByAxisId();
 
 

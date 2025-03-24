@@ -47,8 +47,6 @@ export default class PermissionService {
   // Verificar si el usuario tiene un rol específico
   hasRole(role: string): boolean {
     const roles = this.getUserRoles();
-    console.log("",roles.includes(role.toString()));
-    
     return roles.includes(role.toString());
   }
 
