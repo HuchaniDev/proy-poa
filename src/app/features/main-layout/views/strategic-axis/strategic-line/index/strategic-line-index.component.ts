@@ -11,6 +11,8 @@ import { StrategicLineInterface } from "../../../../models/strategic-axis/strate
 import { StrategicAxisInterface } from "../../../../models/strategic-axis/strategic.interface";
 import { StrategicLineService } from "../../../../services/strategic-axis/strategic-line.service";
 import { StrategicActionComponent } from "../../strategic-action/index/strategic-action-index.component";
+import { DeleteAlertComponent } from "../../../../../../shared/controls/delete-alert/delete-alert.component";
+import { CapitalizePipe } from "../../../../../../shared/pipes/capitalize.pipe";
 
 @Component({
     selector:'app-strategic-line',
@@ -19,12 +21,13 @@ import { StrategicActionComponent } from "../../strategic-action/index/strategic
     imports: [
     PageHeaderComponent,
     CommonModule,
-    StrategicActionComponent
+    StrategicActionComponent,
+		CapitalizePipe
 ]
 })
 export default class StrategicLineComponent{
 	#router = inject(Router);
-	#dialog = inject(DialogService);
+	#dialogService = inject(DialogService);
 	#strategicLineService = inject(StrategicLineService);
 
 	strategicAxis:StrategicAxisInterface | null = null;
@@ -50,7 +53,7 @@ export default class StrategicLineComponent{
 	}
 
 	openForm(strategicLineId:number=0){
-		this.#dialog.open(StrategicLineFormComponent,{
+		this.#dialogService.open(StrategicLineFormComponent,{
 			size:{
         width: '800px',
         minWidth: '350px',
@@ -92,22 +95,45 @@ export default class StrategicLineComponent{
 	}
 
 	delete(strategicLineId:number){
-		this.isLoading = true;
-		this.#strategicLineService.delete$(strategicLineId)
-		.pipe(
-			finalize(() => {
-				this.isLoading = false;
-			}		
-		))
-		.subscribe({
-			next:(response) => {
-				//console.log('response',response);
-				this.getByAxisId();
+		this.#dialogService.open(DeleteAlertComponent,{
+      size:{
+        width: '500px',
+        minWidth: '350px',
+        maxWidth: '50%',
+        height: 'auto',
+        maxHeight: '80%'
+      },
+      data:{
+        title:'Eliminar',
+        message:'¿Está seguro de eliminar el registro?'
+      }
+    })
+    .afterClosed()
+    .subscribe({
+      next: (response) => {
+        if(response){
+					this.isLoading = true;
+					this.#strategicLineService.delete$(strategicLineId)
+					.pipe(
+						finalize(() => {
+							this.isLoading = false;
+						}		
+					))
+					.subscribe({
+						next:(response) => {
+							//console.log('response',response);
+							this.getByAxisId();
+						},
+						error:(error) => {
+							console.log('error',error);
+						}
+					});
+				}
 			},
 			error:(error) => {
 				console.log('error',error);
 			}
-		});
+		})
 	}
 
 

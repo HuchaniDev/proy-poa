@@ -9,6 +9,8 @@ import { FormsModule } from "@angular/forms";
 import { StrategicAxisService } from "../../../services/strategic-axis/strategic-axis.service";
 import { StrategicAxisInterface } from "../../../models/strategic-axis/strategic.interface";
 import { Router } from "@angular/router";
+import { DeleteAlertComponent } from "../../../../../shared/controls/delete-alert/delete-alert.component";
+import { Title } from "@angular/platform-browser";
 
 @Component({
   selector: 'app-strategic-axis-layout',
@@ -23,7 +25,7 @@ import { Router } from "@angular/router";
 })
 export default class StrategicAxisIndexComponent {
   #router = inject(Router);
-  #dialodService=inject(DialogService);
+  #dialogService=inject(DialogService);
   #strategicAxisService=inject(StrategicAxisService);
   
   isLoaging = false;
@@ -36,6 +38,7 @@ export default class StrategicAxisIndexComponent {
    *
    */
   constructor() {
+ 
     this.isLoaging = true;
     this.#loadData$().pipe(finalize(()=>this.isLoaging=false))
     .subscribe({
@@ -47,6 +50,8 @@ export default class StrategicAxisIndexComponent {
       }
     });
   }
+
+
 
   searchByDescription(){
     if(this.textSearch){
@@ -70,7 +75,7 @@ export default class StrategicAxisIndexComponent {
   openForm(strategicAxisId:number=0) {
     console.log('openForm',strategicAxisId);
     
-    this.#dialodService.open(StrategicAxisFormComponent,{
+    this.#dialogService.open(StrategicAxisFormComponent,{
       size:{
         width: '800px',
         minWidth: '350px',
@@ -99,21 +104,41 @@ export default class StrategicAxisIndexComponent {
   }
 
   delete(axisId:number){
-    console.log('delete');
-    this.isLoaging = true;
-    this.#strategicAxisService.delete$(axisId).pipe(
-      switchMap(()=>this.#loadData$()),
-      finalize(()=>this.isLoaging=false)
-    )
+    this.#dialogService.open(DeleteAlertComponent,{
+      size:{
+        width: '500px',
+        minWidth: '350px',
+        maxWidth: '50%',
+        height: 'auto',
+        maxHeight: '80%'
+      },
+      data:{
+        title:'Eliminar',
+        message:'¿Está seguro de eliminar el registro?'
+      }
+    })
+    .afterClosed()
     .subscribe({
-      next: (value:ApiResponseInterface<StrategicAxisInterface[]>) => {
-        this.strategicAxisList = value.data;
+      next: (response) => {
+        if(response){
+          this.#strategicAxisService.delete$(axisId).pipe(
+            switchMap(()=>this.#loadData$()),
+            finalize(()=>this.isLoaging=false)
+          )
+          .subscribe({
+            next: (value:ApiResponseInterface<StrategicAxisInterface[]>) => {
+              this.strategicAxisList = value.data;
+            },
+            error: (error) => {
+              console.log('error',error);
+            }
+          });
+        }
       },
       error: (error) => {
         console.log('error',error);
       }
-    });
-      
+    })
   }
 
   edit(axisId:number){
